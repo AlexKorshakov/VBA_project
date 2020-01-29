@@ -1,0 +1,39 @@
+Private Const ThisModuleName As String = "Module Archive" ' имя модуля \ Module name
+Sub ProcessingAndAcceleration()
+Dim ThisRoutineName As String: ThisRoutineName = "ProcessingAndAcceleration": Dim part As String 'имя поцедуры \ Procedure name
+part0: On Error GoTo ErrorHandler: part = "part0": Application.StatusBar = "execute part of the script: " & part: DoEvents
+'-------------------------------
+    StaffApplicationOFF (False)
+    Dim iTimer As Single: iTimer = Timer: Dim T As Single: T = Timer
+'   LOG.myLOG ThisModuleName, ThisRoutineName, Now(), Me.CommandButton2.Caption
+'----------------------------------------------
+part1: On Error GoTo ErrorHandler: part = "part1": Application.StatusBar = "execute part of the script: " & part: DoEvents
+'----------------------------------------------
+
+'   your code is here
+
+'----------------------------------------------
+part2: On Error GoTo ErrorHandler: part = "part2": Application.StatusBar = "execute part of the script: " & part: DoEvents
+'----------------------------------------------
+
+'   your code is here
+'   Call Show_MsgSistem_Or_No(0, , "Нажимать нужно только один раз!!!")
+    
+'----------------------------------------------
+part3: On Error GoTo ErrorHandler: part = "part3": Application.StatusBar = "execute part of the script: " & part: DoEvents
+'----------------------------------------------
+
+'   your code is here
+    If Application.UserName Like "*Korshakov*" Then: Dim a As Long: a = a + 1
+    
+EXIT_RTN:
+'   LOG.myLOG ThisModuleName, ThisRoutineName, Now(), Me.CommandButton2.Caption, "Успешно \ Successfully"
+    Debug.Print "Macro runtime " & ThisRoutineName & " " & Format((Timer - iTimer) / 86400, "Long Time") & " or " & Timer - T & " sec."
+    StaffApplicationON (True)
+    Exit Sub ' конец процедуры \ end of procedure
+ErrorHandler:    CaseErr (Err)
+'----------------------------------------------
+    Call zzErrorReportBlank.ErrorReport(, ThisModuleName, ThisRoutineName, part, Str(Err.Number), Err.Source, Err.Description) '   Call the error reporting procedure
+    GoTo EXIT_RTN ' переход на завершение процедуры \ transition to completion of the procedure
+'----------------------------------------------
+End Sub
