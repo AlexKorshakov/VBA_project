@@ -1,4 +1,6 @@
 Private Const ThisModuleName As String = "Module Archive" ' имя модуля \ Module name
+Option Explicit
+
 Sub ProcessingAndAcceleration()
 Dim ThisRoutineName As String: ThisRoutineName = "ProcessingAndAcceleration": Dim part As String 'имя поцедуры \ Procedure name
 part0: On Error GoTo ErrorHandler: part = "part0": Application.StatusBar = "execute part of the script: " & part: DoEvents
@@ -33,7 +35,41 @@ EXIT_RTN:
     Exit Sub ' конец процедуры \ end of procedure
 ErrorHandler:    CaseErr (Err)
 '----------------------------------------------
-    Call zzErrorReportBlank.ErrorReport(, ThisModuleName, ThisRoutineName, part, Str(Err.Number), Err.Source, Err.Description) '   Call the error reporting procedure
+'    Call the error reporting procedure
+'    Call zzErrorReportBlank.ErrorReport(, ThisModuleName, ThisRoutineName, part, Str(Err.Number), Err.Source, Err.Description) 
     GoTo EXIT_RTN ' переход на завершение процедуры \ transition to completion of the procedure
 '----------------------------------------------
 End Sub
+
+Public Function StaffApplicationON(Optional Switch As Boolean = False, Optional ScreenUpdating As Boolean = True, Optional Calculation As Boolean = True, _
+                                    Optional DisplayAlerts As Boolean = True, Optional EnableEvents As Boolean = True)
+If Switch Then
+    IIf ScreenUpdating = True, Application.ScreenUpdating = True, Application.ScreenUpdating = False
+    IIf Calculation = True, Application.Calculation = xlAutomatic, Application.Calculation = xlManual
+    IIf DisplayAlerts = True, Application.DisplayAlerts = True, Application.DisplayAlerts = False
+    IIf EnableEvents = True, Application.EnableEvents = True, Application.EnableEvents = False
+End If
+End Function
+
+Public Function StaffApplicationOFF(Optional Switch As Boolean = False, Optional ScreenUpdating As Boolean = False, Optional Calculation As Boolean = False, _
+                                    Optional DisplayAlerts As Boolean = False, Optional EnableEvents As Boolean = False)
+If Switch Then
+    IIf ScreenUpdating = False, Application.ScreenUpdating = False, Application.ScreenUpdating = True
+    IIf Calculation = False, Application.Calculation = xlManual, Application.Calculation = xlAutomatic
+    IIf DisplayAlerts = False, Application.DisplayAlerts = False, Application.DisplayAlerts = True
+    IIf EnableEvents = False, Application.EnableEvents = True, Application.EnableEvents = True
+End If
+End Function
+
+Public Function CaseErr (ByRef Err As Long)
+Select Case Err 'Accessories and Accessories
+     Case 5: MsgBox "Invalid procedure call", vbCritical
+     Case 7: MsgBox "Out of memory", vbCritical
+     Case 9: MsgBox "Subscribing out of range", vbCritical
+     Case 53: MsgBox "File Not Found (File not found)", vbCritical
+     Case 11: MsgBox "Division by zero", vbCritical
+     Case 13: MsgBox "Shuffle Box (Type mismatch)", vbCritical
+     Case 400: MsgBox "Help Center" & "(Form already displayed; can't show modally)", vbCritical
+     Case 1004: MsgBox "No Completeness", vbCritical
+End select
+End function
