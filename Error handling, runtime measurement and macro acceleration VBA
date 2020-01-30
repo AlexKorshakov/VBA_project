@@ -41,6 +41,7 @@ ErrorHandler:    CaseErr (Err)
 '----------------------------------------------
 End Sub
 
+
 Public Function StaffApplicationON(Optional Switch As Boolean = False, Optional ScreenUpdating As Boolean = True, Optional Calculation As Boolean = True, _
                                     Optional DisplayAlerts As Boolean = True, Optional EnableEvents As Boolean = True)
 If Switch Then
@@ -50,6 +51,7 @@ If Switch Then
     IIf EnableEvents = True, Application.EnableEvents = True, Application.EnableEvents = False
 End If
 End Function
+
 
 Public Function StaffApplicationOFF(Optional Switch As Boolean = False, Optional ScreenUpdating As Boolean = False, Optional Calculation As Boolean = False, _
                                     Optional DisplayAlerts As Boolean = False, Optional EnableEvents As Boolean = False)
@@ -61,15 +63,16 @@ If Switch Then
 End If
 End Function
 
-Public Function CaseErr (ByRef Err As Long)
-Select Case Err 'Accessories and Accessories
-     Case 5: MsgBox "Invalid procedure call", vbCritical
-     Case 7: MsgBox "Out of memory", vbCritical
-     Case 9: MsgBox "Subscribing out of range", vbCritical
-     Case 53: MsgBox "File Not Found (File not found)", vbCritical
-     Case 11: MsgBox "Division by zero", vbCritical
-     Case 13: MsgBox "Shuffle Box (Type mismatch)", vbCritical
-     Case 400: MsgBox "Help Center" & "(Form already displayed; can't show modally)", vbCritical
-     Case 1004: MsgBox "No Completeness", vbCritical
-End select
-End function
+
+Public Function CaseErr(ByRef Err As Long)
+Select Case Err ' сообщение с известными ошибками
+    Case 5: MsgBox "Недопустимый вызов процедуры (Invalid procedure call)", vbCritical
+    Case 7: MsgBox "Недостаточно памяти (Out of memory)", vbCritical
+    Case 9: MsgBox "Индекс вне заданного диапазона (Subscript out of range)", vbCritical
+    Case 53: MsgBox "Файл не найден (File not found)", vbCritical
+    Case 11: MsgBox "Деление на ноль (Division by zero)", vbCritical
+    Case 13: MsgBox "Ошибка типа данных (Type mismatch)", vbCritical
+    Case 400: MsgBox "Форма уже отображается " & "(Form already displayed; can't show modally)", vbCritical
+    Case 1004: MsgBox "Значение отсутствует", vbCritical
+End Select
+End Function
