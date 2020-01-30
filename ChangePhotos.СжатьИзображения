@@ -1,0 +1,29 @@
+Sub ChangePhotos()
+    Dim counter As Long
+    Dim myTextBox As Object
+    Set myTextBox = ActiveSheet.Shapes.AddTextbox(msoTextOrientationHorizontal, 100, 100, 100, 50)
+    Dim myShape As Shape: counter = 0
+    
+    For Each myShape In ActiveSheet.Shapes
+        Select Case myShape.Type = msoPicture Or msoLinkedPicture
+            Case True: counter = counter + 1
+            
+                With myTextBox
+                    .Visible = True
+                    .Select
+                    .DrawingObject.Text = counter
+                    .DrawingObject.Font.Size = 28
+                    .DrawingObject.Font.Color = vbWhite
+                    .DrawingObject.Interior.Color = vbRed
+                    .TextFrame.HorizontalAlignment = xlCenter
+                End With
+                
+                'Application.Wait (Now + TimeValue("0:00:02")): DoEvents
+                myShape.Name = counter
+                myShape.Width = 320
+                myShape.Height = 230
+                
+        End Select
+    Next myShape
+    myTextBox.Delete
+End Sub
