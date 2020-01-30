@@ -1,3 +1,4 @@
+'Version from 1/30/2020
 Private Const ThisModuleName As String = "Module Archive" ' имя модуля \ Module name
 Option Explicit
 
@@ -41,7 +42,7 @@ ErrorHandler:    CaseErr (Err)
 '----------------------------------------------
 End Sub
 
-
+'Version from 8/30/2019
 Public Function StaffApplicationON(Optional Switch As Boolean = False, Optional ScreenUpdating As Boolean = True, Optional Calculation As Boolean = True, _
                                     Optional DisplayAlerts As Boolean = True, Optional EnableEvents As Boolean = True)
 If Switch Then
@@ -52,7 +53,7 @@ If Switch Then
 End If
 End Function
 
-
+'Version from 8/30/2019
 Public Function StaffApplicationOFF(Optional Switch As Boolean = False, Optional ScreenUpdating As Boolean = False, Optional Calculation As Boolean = False, _
                                     Optional DisplayAlerts As Boolean = False, Optional EnableEvents As Boolean = False)
 If Switch Then
@@ -63,7 +64,7 @@ If Switch Then
 End If
 End Function
 
-
+'Version from 8/30/2019
 Public Function CaseErr(ByRef Err As Long)
 Select Case Err ' сообщение с известными ошибками
     Case 5: MsgBox "Недопустимый вызов процедуры (Invalid procedure call)", vbCritical
