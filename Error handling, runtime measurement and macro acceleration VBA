@@ -1,5 +1,3 @@
-'Version from 1/30/2020
-'Version from 3/02/2020
 Private Const ThisModuleName As String = "Module Archive" ' имя модуля \ Module name
 Option Explicit
 
@@ -43,8 +41,7 @@ ErrorHandler:    CaseErr Err, ThisModuleName
 '----------------------------------------------
 End Sub
 
-'Version from 8/30/2019
-'Version from 3/02/2020
+
 Public Function StaffApplicationON(Optional Switch As Boolean = False, Optional ScreenUpdating As Boolean = True, Optional Calculation As Boolean = True, _
                                     Optional DisplayAlerts As Boolean = True, Optional EnableEvents As Boolean = True)
 If Switch Then
@@ -55,8 +52,7 @@ If Switch Then
 End If
 End Function
 
-'Version from 8/30/2019
-'Version from 3/02/2020
+
 Public Function StaffApplicationOFF(Optional Switch As Boolean = False, Optional ScreenUpdating As Boolean = False, Optional Calculation As Boolean = False, _
                                     Optional DisplayAlerts As Boolean = False, Optional EnableEvents As Boolean = False)
 If Switch Then
@@ -67,8 +63,7 @@ If Switch Then
 End If
 End Function
 
-'Version from 8/30/2019
-'Version from 3/02/2020
+
 Public Function CaseErr(ByRef Err As Long, Optional ByVal RoutineName As String)
 Select Case Err ' сообщение с известными ошибками
     Case 5:    MsgBox RoutineName & vbNewLine & "Недопустимый вызов процедуры (Invalid procedure call)", vbCritical
@@ -82,7 +77,7 @@ Select Case Err ' сообщение с известными ошибками
 End Select
 End Function
 
-'Version from 3/02/2020
+
 Public Function myTimer(ByVal ThisRoutineName As String, ByVal Argument As String)
 Select Case Argument
     Case Is = "Start"
@@ -93,7 +88,7 @@ Select Case Argument
 End Select
 End Function
 
-'Version from 3/02/2020
+
 Public Function StatusBar(ByVal part As String)
     Application.StatusBar = "Part of the process is in progress \ Выполняю часть процедуры: " & part: DoEvents
 End Function
