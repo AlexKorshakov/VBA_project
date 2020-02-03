@@ -1,29 +1,30 @@
 'Version from 1/30/2020
+'Version from 3/02/2020
 Private Const ThisModuleName As String = "Module Archive" ' имя модуля \ Module name
 Option Explicit
 
 Sub ProcessingAndAcceleration()
 Dim ThisRoutineName As String: ThisRoutineName = "ProcessingAndAcceleration": Dim part As String 'имя поцедуры \ Procedure name
-part0: On Error GoTo ErrorHandler: part = "part0": Application.StatusBar = "execute part of the script: " & part: DoEvents
+part0: On Error GoTo ErrorHandler: part = "part0": StatusBar part
 '-------------------------------
     StaffApplicationOFF (False)
-    Dim iTimer As Single: iTimer = Timer: Dim T As Single: T = Timer
+    myTimer ThisRoutineName, "Start"
 '   LOG.myLOG ThisModuleName, ThisRoutineName, Now(), Me.CommandButton2.Caption
 '----------------------------------------------
-part1: On Error GoTo ErrorHandler: part = "part1": Application.StatusBar = "execute part of the script: " & part: DoEvents
+part1: On Error GoTo ErrorHandler: part = "part1": StatusBar part
 '----------------------------------------------
 
 '   your code is here
 
 '----------------------------------------------
-part2: On Error GoTo ErrorHandler: part = "part2": Application.StatusBar = "execute part of the script: " & part: DoEvents
+part2: On Error GoTo ErrorHandler: part = "part2": StatusBar part
 '----------------------------------------------
 
 '   your code is here
 '   Call Show_MsgSistem_Or_No(0, , "Нажимать нужно только один раз!!!")
     
 '----------------------------------------------
-part3: On Error GoTo ErrorHandler: part = "part3": Application.StatusBar = "execute part of the script: " & part: DoEvents
+part3: On Error GoTo ErrorHandler: part = "part3": StatusBar part
 '----------------------------------------------
 
 '   your code is here
@@ -31,18 +32,19 @@ part3: On Error GoTo ErrorHandler: part = "part3": Application.StatusBar = "exec
     
 EXIT_RTN:
 '   LOG.myLOG ThisModuleName, ThisRoutineName, Now(), Me.CommandButton2.Caption, "Успешно \ Successfully"
-    Debug.Print "Macro runtime " & ThisRoutineName & " " & Format((Timer - iTimer) / 86400, "Long Time") & " or " & Timer - T & " sec."
+    myTimer ThisRoutineName, "Stop"
     StaffApplicationON (True)
     Exit Sub ' конец процедуры \ end of procedure
-ErrorHandler:    CaseErr (Err)
+ErrorHandler:    CaseErr Err, ThisModuleName
 '----------------------------------------------
-'    Call the error reporting procedure
+'    #Call the error reporting procedure
 '    Call zzErrorReportBlank.ErrorReport(, ThisModuleName, ThisRoutineName, part, Str(Err.Number), Err.Source, Err.Description) 
     GoTo EXIT_RTN ' переход на завершение процедуры \ transition to completion of the procedure
 '----------------------------------------------
 End Sub
 
 'Version from 8/30/2019
+'Version from 3/02/2020
 Public Function StaffApplicationON(Optional Switch As Boolean = False, Optional ScreenUpdating As Boolean = True, Optional Calculation As Boolean = True, _
                                     Optional DisplayAlerts As Boolean = True, Optional EnableEvents As Boolean = True)
 If Switch Then
@@ -54,6 +56,7 @@ End If
 End Function
 
 'Version from 8/30/2019
+'Version from 3/02/2020
 Public Function StaffApplicationOFF(Optional Switch As Boolean = False, Optional ScreenUpdating As Boolean = False, Optional Calculation As Boolean = False, _
                                     Optional DisplayAlerts As Boolean = False, Optional EnableEvents As Boolean = False)
 If Switch Then
@@ -65,15 +68,32 @@ End If
 End Function
 
 'Version from 8/30/2019
-Public Function CaseErr(ByRef Err As Long)
+'Version from 3/02/2020
+Public Function CaseErr(ByRef Err As Long, Optional ByVal RoutineName As String)
 Select Case Err ' сообщение с известными ошибками
-    Case 5: MsgBox "Недопустимый вызов процедуры (Invalid procedure call)", vbCritical
-    Case 7: MsgBox "Недостаточно памяти (Out of memory)", vbCritical
-    Case 9: MsgBox "Индекс вне заданного диапазона (Subscript out of range)", vbCritical
-    Case 53: MsgBox "Файл не найден (File not found)", vbCritical
-    Case 11: MsgBox "Деление на ноль (Division by zero)", vbCritical
-    Case 13: MsgBox "Ошибка типа данных (Type mismatch)", vbCritical
-    Case 400: MsgBox "Форма уже отображается " & "(Form already displayed; can't show modally)", vbCritical
-    Case 1004: MsgBox "Значение отсутствует", vbCritical
+    Case 5:    MsgBox RoutineName & vbNewLine & "Недопустимый вызов процедуры (Invalid procedure call)", vbCritical
+    Case 7:    MsgBox RoutineName & vbNewLine & "Недостаточно памяти (Out of memory)", vbCritical
+    Case 9:    MsgBox RoutineName & vbNewLine & "Индекс вне заданного диапазона (Subscript out of range)", vbCritical
+    Case 53:   MsgBox RoutineName & vbNewLine & "Файл не найден (File not found)", vbCritical
+    Case 11:   MsgBox RoutineName & vbNewLine & "Деление на ноль (Division by zero)", vbCritical
+    Case 13:   MsgBox RoutineName & vbNewLine & "Ошибка типа данных (Type mismatch)", vbCritical
+    Case 400:  MsgBox RoutineName & vbNewLine & "Форма уже отображается " & "(Form already displayed; can't show modally)", vbCritical
+    Case 1004: MsgBox RoutineName & vbNewLine & "Значение отсутствует", vbCritical
 End Select
+End Function
+
+'Version from 3/02/2020
+Public Function myTimer(ByVal ThisRoutineName As String, ByVal Argument As String)
+Select Case Argument
+    Case Is = "Start"
+        iTimer = 0: iTimerSec = 0
+        iTimer = Timer: iTimerSec = Timer
+    Case Is = "Stop"
+        Debug.Print "Время выполнения макроса \ Macro run time" & ThisRoutineName & " " & Format((Timer - iTimer) / 86400, "Long Time") & " или " & Timer - iTimerSec & " сек."
+End Select
+End Function
+
+'Version from 3/02/2020
+Public Function StatusBar(ByVal part As String)
+    Application.StatusBar = "Part of the process is in progress \ Выполняю часть процедуры: " & part: DoEvents
 End Function
