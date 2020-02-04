@@ -1,8 +1,10 @@
 Private Const ThisModuleName As String = "Module Archive" ' имя модуля \ Module name
 Option Explicit
+Private part As String
+Private ThisRoutineName As String: 
 
 Sub ProcessingAndAcceleration()
-Dim ThisRoutineName As String: ThisRoutineName = "ProcessingAndAcceleration": Dim part As String 'имя поцедуры \ Procedure name
+ThisRoutineName = "ProcessingAndAcceleration"  'имя поцедуры \ Procedure name
 part0: On Error GoTo ErrorHandler: part = "part0": StatusBar part
 '-------------------------------
     StaffApplicationOFF (False)
@@ -36,7 +38,7 @@ EXIT_RTN:
 ErrorHandler:    CaseErr Err, ThisModuleName
 '----------------------------------------------
 '    #Call the error reporting procedure
-'    Call zzErrorReportBlank.ErrorReport(, ThisModuleName, ThisRoutineName, part, Str(Err.Number), Err.Source, Err.Description) 
+'    Call zzErrorReportBlank.ErrorReport(, ThisModuleName, ThisRoutineName, part, Err 
     GoTo EXIT_RTN ' переход на завершение процедуры \ transition to completion of the procedure
 '----------------------------------------------
 End Sub
